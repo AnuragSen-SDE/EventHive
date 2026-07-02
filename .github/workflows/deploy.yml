@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -39,6 +39,9 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script:  | 
+            echo "move to the project folder"
+            cd ~/eventhive
+            
             echo "Pulling latest docker image..."
             docker pull anuragsen007/eventhive
             
