@@ -2,14 +2,16 @@ package com.eventHive.tickets.eventHive.user.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "name_table")
+@Table(name = "user_table")
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class User {
 
     @Id
