@@ -18,6 +18,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -33,9 +35,11 @@ public class AuthServiceImpl implements AuthService {
         User user = User.builder()
                 .email(signupRequestDto.getEmail())
                 .password(passwordEncoder.encode(signupRequestDto.getPassword()))
+                .name(signupRequestDto.getName())
+                .createdAt(LocalDateTime.now())
                 .isActive(true)
                 .build();
-        user = userService.saveUser(user);
+        userService.saveUser(user);
     }
 
     @Override

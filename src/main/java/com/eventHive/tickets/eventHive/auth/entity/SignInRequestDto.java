@@ -15,4 +15,5 @@ public class SignInRequestDto {
 
     @NotBlank(message = "Password can't be empty")
     private final String password;
+
 }
