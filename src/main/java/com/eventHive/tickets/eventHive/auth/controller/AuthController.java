@@ -1,5 +1,7 @@
 package com.eventHive.tickets.eventHive.auth.controller;
 
+import com.eventHive.tickets.eventHive.auth.entity.SignInRequestDto;
+import com.eventHive.tickets.eventHive.auth.entity.SignInResponseDto;
 import com.eventHive.tickets.eventHive.auth.entity.SignupRequestDto;
 import com.eventHive.tickets.eventHive.auth.service.AuthService;
 import com.eventHive.tickets.eventHive.user.service.UserService;
@@ -32,6 +34,21 @@ public class AuthController {
                         ApiResponse.builder()
                                 .status(HttpStatus.CREATED.value())
                                 .message("Account created with email : " + signupRequestDto.getEmail())
+                                .build()
+                );
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<ApiResponse> signInUser(
+            @Valid @RequestBody SignInRequestDto signInRequestDto
+            ) {
+        SignInResponseDto responseDto = authService.signInUser(signInRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        ApiResponse.builder()
+                                .message("Login Successfully")
+                                .status(HttpStatus.CREATED.value())
+                                .data(responseDto)
                                 .build()
                 );
     }
