@@ -2,25 +2,18 @@ package com.eventHive.tickets.eventHive.auth.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
-public class SignupRequestDto {
+public class SignInRequestDto {
 
     @NotBlank(message = "Email can't be empty")
-    private String email;
+    private final String email;
 
     @NotBlank(message = "Password can't be empty")
-    private String password;
-
-    @NotBlank(message = "Name can't be empty")
-    private final String name;
-
-    private final String phoneNumber;
+    private final String password;
 
 }

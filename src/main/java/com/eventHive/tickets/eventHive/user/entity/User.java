@@ -1,16 +1,16 @@
 package com.eventHive.tickets.eventHive.user.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_table")
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class User {
 
@@ -26,4 +26,11 @@ public class User {
 
     @Column(nullable = false)
     private boolean isActive;
+
+    @Column(nullable = false)
+    private String name;
+
+    private String phoneNumber;
+
+    private LocalDateTime createdAt;
 }
