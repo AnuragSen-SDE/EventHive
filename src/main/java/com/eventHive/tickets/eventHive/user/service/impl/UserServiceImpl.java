@@ -1,5 +1,6 @@
 package com.eventHive.tickets.eventHive.user.service.impl;
 
+import com.eventHive.tickets.eventHive.exception.customExcepiton.UserException;
 import com.eventHive.tickets.eventHive.user.entity.User;
 import com.eventHive.tickets.eventHive.user.repository.UserRepository;
 import com.eventHive.tickets.eventHive.user.service.UserService;
@@ -27,6 +28,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public User findById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new UserException("User Not found with the specified Id"));
     }
 
 }

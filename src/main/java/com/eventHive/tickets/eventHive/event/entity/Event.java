@@ -1,6 +1,7 @@
 package com.eventHive.tickets.eventHive.event.entity;
 
 import com.eventHive.tickets.eventHive.event.entity.type.EventStatus;
+import com.eventHive.tickets.eventHive.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,6 @@ import java.time.LocalDateTime;
 @Table(name = "Events")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Event {
 
@@ -23,10 +23,13 @@ public class Event {
     private Long id;
 
     @Column(nullable = false)
-    private String Title;
+    private String title;
 
     @Column(nullable = false,columnDefinition = "TEXT")
     private String description;
+
+    @Column(nullable = false)
+    private String eventCode;
 
     @Column(nullable = false)
     private String venue;
@@ -35,10 +38,7 @@ public class Event {
     private Integer totalSeats;
 
     @Column(nullable = false)
-    private Integer bookedSeats;
-
-    @Column(nullable = false)
-    private String price;
+    private Double price;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
@@ -49,5 +49,11 @@ public class Event {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EventStatus status;
+
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
 }
