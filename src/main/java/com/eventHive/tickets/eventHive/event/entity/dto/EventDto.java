@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class EventDto {
 
     @NotBlank(message = "Event title should not be null")
-    private String Title;
+    private String title;
 
 
     private String description;
@@ -28,14 +28,9 @@ public class EventDto {
     @NotBlank(message = "Total seat count cannot be empty")
     private Integer totalSeats;
 
-
-    private Integer bookedSeats;
+    private String eventCode;
 
     @NotBlank(message = "Price data can't be empty")
-    private String price;
+    private Double price;
 
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private EventStatus status;
 }
