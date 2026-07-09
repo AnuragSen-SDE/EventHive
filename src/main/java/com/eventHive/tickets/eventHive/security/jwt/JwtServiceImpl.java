@@ -4,6 +4,7 @@ import com.eventHive.tickets.eventHive.security.entity.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService{
 
@@ -34,7 +36,7 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         Claims claims = extractAllClaims(token);
-        return claims.getExpiration().before(new Date()) && claims.getSubject().equals(userDetails.getUsername());
+        return !claims.getExpiration().before(new Date()) && claims.getSubject().equals(userDetails.getUsername());
     }
 
     @Override

@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -31,22 +33,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
         System.out.println("header: " + header);
-        if (header == null || !header.startsWith("Bearer")){
+        if (header == null || !header.startsWith("bearer")){
+            log.debug("header is null");
             filterChain.doFilter(request,response);
             return;
         }
 
         String token = header.substring(7);
         String username = "" ;
+
         try{
             username = jwtService.extractUserName(token);
         } catch (Exception e ) {
             System.out.println(e.getMessage());
         }
+        log.debug("username : {}" ,username);
+        log.debug("securityContextHolder : {}" ,SecurityContextHolder.getContext().getAuthentication());
 
         if( username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-            if(jwtService.isTokenValid(token,userDetails)) {
+
+            boolean isValid = jwtService.isTokenValid(token,userDetails);
+            log.debug("jwt is valid : {}" ,isValid);
+
+            if(isValid) {
+                log.debug("jwt is valid ");
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
