@@ -3,6 +3,7 @@ package com.eventHive.tickets.eventHive.event.service.impl;
 import com.eventHive.tickets.eventHive.event.entity.Event;
 import com.eventHive.tickets.eventHive.event.entity.EventMembership;
 import com.eventHive.tickets.eventHive.event.entity.type.EventRoles;
+import com.eventHive.tickets.eventHive.event.entity.type.EventStatus;
 import com.eventHive.tickets.eventHive.event.repository.EventMembershipRepository;
 import com.eventHive.tickets.eventHive.event.repository.EventRepository;
 import com.eventHive.tickets.eventHive.event.service.EventService;
@@ -35,6 +36,7 @@ public class EventServiceImpl implements EventService {
            event.setCreatedAt(LocalDateTime.now());
            event.setCreatedBy(createdBy);
            event.setUpdatedAt(LocalDateTime.now());
+           event.setStatus(EventStatus.PUBLISHED);
 
            Event savedEvent = eventRepository.save(event);
 
