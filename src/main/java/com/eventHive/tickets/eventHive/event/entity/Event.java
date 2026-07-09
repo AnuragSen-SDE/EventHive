@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Events")
+@Table(name = "events")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,6 +39,9 @@ public class Event {
 
     @Column(nullable = false)
     private Double price;
+
+//    @Column(nullable = false)
+    private Integer availableSeats;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

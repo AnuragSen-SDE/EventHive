@@ -37,6 +37,7 @@ public class EventServiceImpl implements EventService {
            event.setCreatedBy(createdBy);
            event.setUpdatedAt(LocalDateTime.now());
            event.setStatus(EventStatus.PUBLISHED);
+           event.setAvailableSeats(event.getTotalSeats());
 
            Event savedEvent = eventRepository.save(event);
 
@@ -57,5 +58,15 @@ public class EventServiceImpl implements EventService {
            throw new EventException(e.getMessage());
         }
 
+    }
+
+    @Override
+    public int decreaseAvailableSets(Long eventId) {
+        return eventRepository.decrementAvailableSeats(eventId);
+    }
+
+    @Override
+    public Event findById(Long eventId) {
+        return eventRepository.findById(eventId).orElseThrow(() -> new EventException("Event Not Found"));
     }
 }
